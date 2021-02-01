@@ -18,10 +18,11 @@ def select_col_fzf(sheet):
     proc = subprocess.Popen(
         command,
         stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE
+        stdout=subprocess.PIPE,
+        text=True
     )
     rows_to_filter = list(sheet.cursorCol.getValues(sheet.rows))
-    filtered_rows = proc.communicate(input='\n'.join(rows_to_filter).encode())[0].decode().splitlines()
+    filtered_rows = proc.communicate(input='\n'.join(rows_to_filter))[0].splitlines()
 
     BaseSheet.refresh(sheet)
 
